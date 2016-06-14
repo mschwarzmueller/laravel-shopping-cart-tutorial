@@ -16,8 +16,18 @@ Route::get('/', [
     'as' => 'product.index'
 ]);
 
-Route::group(['prefix' => 'user'], function() {
-    Route::group(['middleware' => 'guest'], function() {
+Route::get('/add-to-cart/{id}', [
+    'uses' => 'ProductController@getAddToCart',
+    'as' => 'product.addToCart'
+]);
+
+Route::get('/shopping-cart', [
+    'uses' => 'ProductController@getCart',
+    'as' => 'product.shoppingCart'
+]);
+
+Route::group(['prefix' => 'user'], function () {
+    Route::group(['middleware' => 'guest'], function () {
         Route::get('/signup', [
             'uses' => 'UserController@getSignup',
             'as' => 'user.signup'
@@ -39,7 +49,7 @@ Route::group(['prefix' => 'user'], function() {
         ]);
     });
 
-    Route::group(['middleware' => 'auth'], function() {
+    Route::group(['middleware' => 'auth'], function () {
         Route::get('/profile', [
             'uses' => 'UserController@getProfile',
             'as' => 'user.profile'
